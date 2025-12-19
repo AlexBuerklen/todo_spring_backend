@@ -1,7 +1,7 @@
 package io.alexb.todo.controller;
 
 import io.alexb.todo.controller.dto.TodoResponseDto;
-import io.alexb.todo.controller.dto.TodoTitleResponseDto;
+import io.alexb.todo.controller.dto.TodoCategoryResponseDto;
 import io.alexb.todo.mapper.TodoMapper;
 import io.alexb.todo.model.Todo;
 import io.alexb.todo.service.TodoService;
@@ -27,9 +27,9 @@ public class TodoController implements TodoResource {
     }
 
     @Override
-    public ResponseEntity<List<TodoTitleResponseDto>> getTodoTitle() {
+    public ResponseEntity<List<TodoCategoryResponseDto>> getTodoCategory() {
         List<Todo> todo = todoService.findAll();
-        return ResponseEntity.ok(todoMapper.mapToDtoTitleList(todo));
+        return ResponseEntity.ok(todoMapper.mapToDtoCategoryList(todo));
     }
 
     @Override

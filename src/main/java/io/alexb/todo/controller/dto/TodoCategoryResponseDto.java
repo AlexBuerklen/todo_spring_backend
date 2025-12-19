@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class TodoTitleResponseDto {
+public class TodoCategoryResponseDto {
     private int id;
-    private String title;
+    private String category;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface TodoRepository extends JpaRepository <Todo, Integer>{
-    @Query("select t.id as id, t.title as title from Todo t order by t.id")
-    List<Todo> findAllByTitleAndId();
+    @Query("select c.id as id, c.title as category from Todo c order by c.id")
+    List<Todo> findAllByCategoryAndId();
 }
 

@@ -1,10 +1,9 @@
 package io.alexb.todo.controller;
 
 import io.alexb.todo.controller.dto.TodoResponseDto;
-import io.alexb.todo.controller.dto.TodoTitleResponseDto;
+import io.alexb.todo.controller.dto.TodoCategoryResponseDto;
 import io.alexb.todo.model.Todo;
 import io.alexb.todo.service.dto.TodoRequestDto;
-import io.alexb.todo.service.dto.TodoTitleRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,7 +33,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @GetMapping("/api/Todo/getTodoTitle")
-    ResponseEntity<List<TodoTitleResponseDto>> getTodoTitle();
+    ResponseEntity<List<TodoCategoryResponseDto>> getTodoCategory();
 
     @Operation(summary = "Create a new todo")
     @ApiResponses(value = {
