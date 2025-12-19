@@ -1,6 +1,7 @@
 package io.alexb.todo.mapper;
 
 import io.alexb.todo.controller.dto.TodoResponseDto;
+import io.alexb.todo.controller.dto.TodoTitleResponseDto;
 import io.alexb.todo.model.Todo;
 import org.springframework.stereotype.Component;
 
@@ -15,11 +16,21 @@ public class TodoMapper {
             return null;
         }
         return todo.stream()
-                .map(this::mapToDto)
+                .map(this::mapToTodoResponseDto)
                 .collect(Collectors.toList());
     }
 
-    public TodoResponseDto mapToDto(Todo todo){
+    public List<TodoTitleResponseDto> mapToDtoTitleList(List<Todo> todo){
+        if(todo == null){
+            return null;
+        }
+
+        return todo.stream()
+                .map(this::mapToTodoTitleRequestDto)
+                .collect(Collectors.toList());
+    }
+
+    public TodoResponseDto mapToTodoResponseDto(Todo todo){
         if(todo == null){
             return null;
         }
@@ -30,6 +41,16 @@ public class TodoMapper {
                 .category(todo.getCategory())
                 .due(todo.getDue())
                 .description(todo.getDescription())
+                .build();
+    }
+
+    public TodoTitleResponseDto mapToTodoTitleRequestDto(Todo todo){
+        if(todo == null){
+            return null;
+        }
+        return TodoTitleResponseDto.builder()
+                .id(todo.getId())
+                .title(todo.getTitle())
                 .build();
     }
 }

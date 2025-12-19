@@ -4,6 +4,7 @@ import io.alexb.todo.exception.TodoValidationException;
 import io.alexb.todo.model.Todo;
 import io.alexb.todo.repository.TodoRepository;
 import io.alexb.todo.service.dto.TodoRequestDto;
+import io.alexb.todo.service.dto.TodoTitleRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,4 +40,5 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     public void deleteById(int id) { todoRepository.deleteById(id); }
+
 }

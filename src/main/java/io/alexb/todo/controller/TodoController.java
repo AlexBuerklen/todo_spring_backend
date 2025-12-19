@@ -1,6 +1,7 @@
 package io.alexb.todo.controller;
 
 import io.alexb.todo.controller.dto.TodoResponseDto;
+import io.alexb.todo.controller.dto.TodoTitleResponseDto;
 import io.alexb.todo.mapper.TodoMapper;
 import io.alexb.todo.model.Todo;
 import io.alexb.todo.service.TodoService;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/Todo")
+@RequestMapping("/")
 public class TodoController implements TodoResource {
 
     private final TodoService todoService;
@@ -26,9 +27,15 @@ public class TodoController implements TodoResource {
     }
 
     @Override
+    public ResponseEntity<List<TodoTitleResponseDto>> getTodoTitle() {
+        List<Todo> todo = todoService.findAll();
+        return ResponseEntity.ok(todoMapper.mapToDtoTitleList(todo));
+    }
+
+    @Override
     public ResponseEntity<TodoResponseDto> createTodo(TodoRequestDto todoRequestDto) {
         Todo createTodo = todoService.createTodo(todoRequestDto);
-        return ResponseEntity.ok(todoMapper.mapToDto(createTodo));
+        return ResponseEntity.ok(todoMapper.mapToTodoResponseDto(createTodo));
     }
 
     @Override

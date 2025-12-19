@@ -1,8 +1,10 @@
 package io.alexb.todo.controller;
 
 import io.alexb.todo.controller.dto.TodoResponseDto;
+import io.alexb.todo.controller.dto.TodoTitleResponseDto;
 import io.alexb.todo.model.Todo;
 import io.alexb.todo.service.dto.TodoRequestDto;
+import io.alexb.todo.service.dto.TodoTitleRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,12 +22,19 @@ public interface TodoResource {
 
     @Operation(summary = "Get all todos")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of todos",
-                    content = @Content(schema = @Schema(implementation = Todo.class))),
+            @ApiResponse(responseCode = "200", description = "List of todos", content = @Content(schema = @Schema(implementation = Todo.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @GetMapping("/api/Todo/getAllTodos")
     ResponseEntity<List<TodoResponseDto>> getAllTodos();
+
+    @Operation(summary = "Get only Todos with title and id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get Title of Todo", content = @Content(schema = @Schema(implementation = Todo.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @GetMapping("/api/Todo/getTodoTitle")
+    ResponseEntity<List<TodoTitleResponseDto>> getTodoTitle();
 
     @Operation(summary = "Create a new todo")
     @ApiResponses(value = {
