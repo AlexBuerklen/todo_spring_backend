@@ -39,4 +39,15 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public void deleteById(int id) { todoRepository.deleteById(id); }
 
+    @Override
+    public List<String> findAllWithFilteredCategories() {
+        List<Todo> todos = todoRepository.findAll();
+
+        return todos.stream()
+                .map(Todo::getCategory)
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
 }
