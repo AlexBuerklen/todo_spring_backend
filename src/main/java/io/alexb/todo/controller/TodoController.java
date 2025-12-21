@@ -42,4 +42,10 @@ public class TodoController implements TodoResource {
         todoService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<List<TodoResponseDto>> getCategoryFilteredTodos(String category) {
+        List<Todo> todos = todoService.getCategoryFilteredTodos(category);
+        return ResponseEntity.ok(todoMapper.mapToDtoList(todos));
+    }
 }

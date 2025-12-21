@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TodoService {
 
-    @Transactional
+    @Transactional(readOnly = true)
     List<Todo> findAll();
 
     @Transactional
@@ -17,6 +17,9 @@ public interface TodoService {
     @Transactional
     void deleteById(int id);
 
-    @Transactional
+    @Transactional(readOnly = true)
     List<String> findAllWithFilteredCategories();
+
+    @Transactional(readOnly = true)
+    List<Todo> getCategoryFilteredTodos(String category);
 }

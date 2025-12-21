@@ -50,4 +50,13 @@ public class TodoServiceImpl implements TodoService{
                 .toList();
     }
 
+    @Override
+    public List<Todo> getCategoryFilteredTodos(String category) {
+        List<Todo> todos = todoRepository.findAll();
+
+        return todos.stream()
+                .filter(todo -> todo.getCategory().equals(category))
+                .toList();
+    }
+
 }

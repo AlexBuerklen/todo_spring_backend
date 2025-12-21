@@ -31,7 +31,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "200", description = "Get Title of Todo", content = @Content(schema = @Schema(implementation = Todo.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
-    @GetMapping("/api/Todo/getTodoTitle")
+    @GetMapping("/api/Todo/getTodoCategories")
     ResponseEntity<List<String>> getTodoCategory();
 
     @Operation(summary = "Create a new todo")
@@ -52,4 +52,7 @@ public interface TodoResource {
     })
     @DeleteMapping("/api/Todo/deleteTodo/{id}")
     ResponseEntity<Void> deleteTodo(@PathVariable int id);
+
+    @GetMapping("/api/Todo/getCategoryFilteredTodos/{category}")
+    ResponseEntity<List<TodoResponseDto>> getCategoryFilteredTodos(@PathVariable  String category);
 }
