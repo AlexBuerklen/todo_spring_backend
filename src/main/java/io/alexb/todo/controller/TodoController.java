@@ -48,4 +48,16 @@ public class TodoController implements TodoResource {
         List<Todo> todos = todoService.getCategoryFilteredTodos(category);
         return ResponseEntity.ok(todoMapper.mapToDtoList(todos));
     }
+
+    @Override
+    public ResponseEntity<TodoResponseDto> changeTitle(int id, String title) {
+        Todo changedTitleTodo = todoService.changeTitleTodo(id, title);
+        return ResponseEntity.ok(todoMapper.mapToTodoResponseDto(changedTitleTodo));
+    }
+
+    @Override
+    public ResponseEntity<TodoResponseDto> changeDescription(int id, String description) {
+        Todo changeDescriptionTodo = todoService.changeDescriptionTodo(id, description);
+        return ResponseEntity.ok(todoMapper.mapToTodoResponseDto(changeDescriptionTodo));
+    }
 }

@@ -26,9 +26,9 @@ public interface TodoResource {
     @GetMapping("/api/Todo/getAllTodos")
     ResponseEntity<List<TodoResponseDto>> getAllTodos();
 
-    @Operation(summary = "Get only Todos with title and id")
+    @Operation(summary = "Get List of Categories")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Get Title of Todo", content = @Content(schema = @Schema(implementation = Todo.class))),
+            @ApiResponse(responseCode = "200", description = "List of Categories", content = @Content(schema = @Schema(implementation = Todo.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @GetMapping("/api/Todo/getTodoCategories")
@@ -36,8 +36,7 @@ public interface TodoResource {
 
     @Operation(summary = "Create a new todo")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Todo created successfully",
-                    content = @Content(schema = @Schema(implementation = Todo.class))),
+            @ApiResponse(responseCode = "201", description = "Todo created successfully", content = @Content(schema = @Schema(implementation = Todo.class))),
             @ApiResponse(responseCode = "400", description = "Invalid todo request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
@@ -53,6 +52,27 @@ public interface TodoResource {
     @DeleteMapping("/api/Todo/deleteTodo/{id}")
     ResponseEntity<Void> deleteTodo(@PathVariable int id);
 
+    @Operation(summary = "Get summarized categories from all Todos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Get summarized categories", content = @Content(schema = @Schema(implementation = Todo.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     @GetMapping("/api/Todo/getCategoryFilteredTodos/{category}")
     ResponseEntity<List<TodoResponseDto>> getCategoryFilteredTodos(@PathVariable  String category);
+
+    @Operation(summary = "Change Title of Todo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Todo title changed successfully", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @PostMapping("/api/Todo/changeTitle/{id}/{title}")
+    ResponseEntity<TodoResponseDto> changeTitle(@PathVariable int id, @PathVariable String title);
+
+    @Operation(summary = "Change Description of Todo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Todo description changed successfully", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server error")
+    })
+    @PostMapping("/api/Todo/changeDescription/{id}/{description}")
+    ResponseEntity<TodoResponseDto> changeDescription(@PathVariable int id, @PathVariable String description);
 }

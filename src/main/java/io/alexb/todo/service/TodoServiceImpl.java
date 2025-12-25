@@ -1,13 +1,13 @@
 package io.alexb.todo.service;
 
-import io.alexb.todo.exception.TodoValidationException;
 import io.alexb.todo.model.Todo;
 import io.alexb.todo.repository.TodoRepository;
 import io.alexb.todo.service.dto.TodoRequestDto;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import static io.alexb.todo.exception.TodoValidationException.validateId;
 
 @Service
 public class TodoServiceImpl implements TodoService{
@@ -23,7 +23,7 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public Todo createTodo(TodoRequestDto todoRequestDto) {
 
-        TodoValidationException.validateId(todoRequestDto.getId());
+        validateId(todoRequestDto.getId());
 
         Todo todo = Todo.builder()
                 .id(todoRequestDto.getId())
@@ -57,6 +57,26 @@ public class TodoServiceImpl implements TodoService{
         return todos.stream()
                 .filter(todo -> todo.getCategory().equals(category))
                 .toList();
+    }
+
+    @Override
+    public Todo changeTitleTodo(int id, String title) {
+        validateId(id);
+
+        Todo existingTodo = todoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Todo not found with id: " + id));
+
+        existingTodo.setTitle(title);
+        return todoRepository.save(existingTodo);
+    }
+
+    @Override
+    public Todo changeDescriptionTodo(int id, String description) {
+        validateId(id);
+
+        Todo existingTodo = todoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Todo not found with id: "+ id));
+
+        existingTodo.setDescription(description);
+        return todoRepository.save(existingTodo);
     }
 
 }

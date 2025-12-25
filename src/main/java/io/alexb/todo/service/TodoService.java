@@ -22,4 +22,10 @@ public interface TodoService {
 
     @Transactional(readOnly = true)
     List<Todo> getCategoryFilteredTodos(String category);
+
+    @Transactional
+    Todo changeTitleTodo(int id, String title);
+
+    @Transactional
+    Todo changeDescriptionTodo(int id, String description);
 }
