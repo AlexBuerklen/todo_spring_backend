@@ -13,7 +13,6 @@ public class TodoResponseDto {
     private int id;
     private String title;
     private String category;
-    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate due;
     private String description;
 }
