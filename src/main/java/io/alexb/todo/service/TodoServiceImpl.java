@@ -6,6 +6,8 @@ import io.alexb.todo.service.dto.TodoRequestDto;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 import static io.alexb.todo.exception.TodoValidationException.validateId;
 
@@ -79,4 +81,13 @@ public class TodoServiceImpl implements TodoService{
         return todoRepository.save(existingTodo);
     }
 
+    @Override
+    public Todo changeDueDate(int id, LocalDate date) {
+        validateId(id);
+
+        Todo existingTodo = todoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Todo not found with id: " + id));
+
+        existingTodo.setDue(date);
+        return todoRepository.save(existingTodo);
+    }
 }

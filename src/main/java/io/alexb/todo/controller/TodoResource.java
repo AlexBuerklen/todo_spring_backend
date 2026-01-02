@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Validated
@@ -75,4 +76,12 @@ public interface TodoResource {
     })
     @PostMapping("/api/Todo/changeDescription/{id}/{description}")
     ResponseEntity<TodoResponseDto> changeDescription(@PathVariable int id, @PathVariable String description);
+
+    @Operation(summary = "Change Due Date of Todo")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200", description = "Todo Due Date changed successfully"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @PostMapping("/api/Todo/changeDueDate/{id}/{date}")
+    ResponseEntity<TodoResponseDto> changeDueDate(@PathVariable int id, @PathVariable LocalDate date);
 }

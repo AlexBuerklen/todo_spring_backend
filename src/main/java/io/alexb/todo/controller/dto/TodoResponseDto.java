@@ -1,5 +1,6 @@
 package io.alexb.todo.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ public class TodoResponseDto {
     private int id;
     private String title;
     private String category;
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate due;
     private String description;
 }

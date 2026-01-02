@@ -8,6 +8,8 @@ import io.alexb.todo.service.dto.TodoRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -59,5 +61,11 @@ public class TodoController implements TodoResource {
     public ResponseEntity<TodoResponseDto> changeDescription(int id, String description) {
         Todo changeDescriptionTodo = todoService.changeDescriptionTodo(id, description);
         return ResponseEntity.ok(todoMapper.mapToTodoResponseDto(changeDescriptionTodo));
+    }
+
+    @Override
+    public ResponseEntity<TodoResponseDto> changeDueDate(int id, LocalDate date) {
+        Todo changeDueDate = todoService.changeDueDate(id, date);
+        return ResponseEntity.ok(todoMapper.mapToTodoResponseDto(changeDueDate));
     }
 }
