@@ -19,9 +19,6 @@ public interface TodoService {
     void deleteById(int id);
 
     @Transactional(readOnly = true)
-    List<String> findAllWithFilteredCategories();
-
-    @Transactional(readOnly = true)
     List<Todo> getCategoryFilteredTodos(String category);
 
     @Transactional

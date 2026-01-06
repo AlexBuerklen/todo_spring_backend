@@ -27,12 +27,6 @@ public class TodoController implements TodoResource {
     }
 
     @Override
-    public ResponseEntity<List<String>> getTodoCategory() {
-        List<String> categories = todoService.findAllWithFilteredCategories();
-        return ResponseEntity.ok(categories);
-    }
-
-    @Override
     public ResponseEntity<TodoResponseDto> createTodo(TodoRequestDto todoRequestDto) {
         Todo createTodo = todoService.createTodo(todoRequestDto);
         return ResponseEntity.ok(todoMapper.mapToTodoResponseDto(createTodo));

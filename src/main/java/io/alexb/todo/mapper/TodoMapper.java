@@ -27,7 +27,6 @@ public class TodoMapper {
         return TodoResponseDto.builder()
                 .id(todo.getId())
                 .title(todo.getTitle())
-                .category(todo.getCategory())
                 .due(todo.getDue())
                 .description(todo.getDescription())
                 .build();

@@ -30,7 +30,6 @@ public class TodoServiceImpl implements TodoService{
         Todo todo = Todo.builder()
                 .id(todoRequestDto.getId())
                 .title(todoRequestDto.getTitle())
-                .category(todoRequestDto.getCategory())
                 .due(todoRequestDto.getDue())
                 .description(todoRequestDto.getDescription())
                 .build();
@@ -42,24 +41,10 @@ public class TodoServiceImpl implements TodoService{
     public void deleteById(int id) { todoRepository.deleteById(id); }
 
     @Override
-    public List<String> findAllWithFilteredCategories() {
-        List<Todo> todos = todoRepository.findAll();
-
-        return todos.stream()
-                .map(Todo::getCategory)
-                .distinct()
-                .sorted()
-                .toList();
-    }
-
-    @Override
     public List<Todo> getCategoryFilteredTodos(String category) {
-        List<Todo> todos = todoRepository.findAll();
-
-        return todos.stream()
-                .filter(todo -> todo.getCategory().equals(category))
-                .toList();
+        return todoRepository.findByCategory_Category(category);
     }
+
 
     @Override
     public Todo changeTitleTodo(int id, String title) {

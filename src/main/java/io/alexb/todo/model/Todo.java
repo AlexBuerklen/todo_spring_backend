@@ -1,34 +1,34 @@
 package io.alexb.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Data
-@Builder
-@RequiredArgsConstructor
-@Table(name="todo")
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Table(name = "todo")
 public class Todo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
+    private Integer id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="category")
-    private String category;
-
-    @Column(name="due")
+    @Column(name = "due")
     private LocalDate due;
 
-    @Column(name="description")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 }
