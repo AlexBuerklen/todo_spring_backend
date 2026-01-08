@@ -24,4 +24,10 @@ public class CategoryController implements CategoryResource{
         List<Category> categories = categoryService.findAll();
         return ResponseEntity.ok(categoryMapper.mapToDtoListCategories(categories));
     }
+
+    @Override
+    public ResponseEntity<CategoryResponseDto> addCategory(String newCategory) {
+        Category category = categoryService.saveCategory(newCategory);
+        return ResponseEntity.ok(categoryMapper.mapToCategoryResponseDto(category));
+    }
 }

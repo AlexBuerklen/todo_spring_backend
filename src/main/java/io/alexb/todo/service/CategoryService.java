@@ -11,4 +11,7 @@ public interface CategoryService {
 
     @Transactional(readOnly = true)
     List<Category> findAll();
+
+    @Transactional
+    Category saveCategory(String newCategory);
 }

@@ -13,14 +13,6 @@ import java.util.List;
 
 public interface TodoResource {
 
-    @Operation(summary = "Get all todos")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of todos"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
-    @GetMapping("/api/Todo/getAllTodos")
-    ResponseEntity<List<TodoResponseDto>> getAllTodos();
-
     @Operation(summary = "Create a new todo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Todo created successfully"),

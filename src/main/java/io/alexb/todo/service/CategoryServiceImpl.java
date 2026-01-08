@@ -16,5 +16,14 @@ public class CategoryServiceImpl implements CategoryService{
     public CategoryServiceImpl(CategoryRepository theCategoryRepository){ categoryRepository = theCategoryRepository; }
 
     @Override
-    public List<Category> findAll() {return categoryRepository.findAll();}
+    public List<Category> findAll() { return categoryRepository.findAll(); }
+
+    @Override
+    public Category saveCategory(String newCategory) {
+
+        Category category = Category.builder()
+                .category(newCategory)
+                .build();
+        return categoryRepository.save(category);
+    }
 }

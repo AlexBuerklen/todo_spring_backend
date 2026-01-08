@@ -19,13 +19,6 @@ public class TodoController implements TodoResource {
     private final TodoService todoService;
     private final TodoMapper todoMapper;
 
-
-    @Override
-    public ResponseEntity<List<TodoResponseDto>> getAllTodos() {
-        List<Todo> todos = todoService.findAll();
-        return ResponseEntity.ok(todoMapper.mapToDtoList(todos));
-    }
-
     @Override
     public ResponseEntity<TodoResponseDto> createTodo(TodoRequestDto todoRequestDto) {
         Todo createTodo = todoService.createTodo(todoRequestDto);
