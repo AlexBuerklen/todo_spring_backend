@@ -1,23 +1,28 @@
 package io.alexb.todo.service;
 
+import io.alexb.todo.model.Category;
 import io.alexb.todo.model.Todo;
+import io.alexb.todo.repository.CategoryRepository;
 import io.alexb.todo.repository.TodoRepository;
 import io.alexb.todo.service.dto.TodoRequestDto;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
 import static io.alexb.todo.exception.TodoValidationException.validateId;
 
 @Service
+@RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService{
 
     private final TodoRepository todoRepository;
 
-    @Autowired
-    public TodoServiceImpl(TodoRepository theTodoRepository) { todoRepository = theTodoRepository;}
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<Todo> findAll() { return todoRepository.findAll(); }
@@ -25,11 +30,14 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public Todo createTodo(TodoRequestDto todoRequestDto) {
 
-        validateId(todoRequestDto.getId());
+        Category category = categoryRepository
+                .findByCategoryIgnoreCase(todoRequestDto.getCategory().trim())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "Kategorie nicht gefunden: " + todoRequestDto.getCategory().trim()));
 
         Todo todo = Todo.builder()
-                .id(todoRequestDto.getId())
                 .title(todoRequestDto.getTitle())
+                .category(category)
                 .due(todoRequestDto.getDue())
                 .description(todoRequestDto.getDescription())
                 .build();
@@ -44,7 +52,6 @@ public class TodoServiceImpl implements TodoService{
     public List<Todo> getCategoryFilteredTodos(String category) {
         return todoRepository.findByCategory_Category(category);
     }
-
 
     @Override
     public Todo changeTitleTodo(int id, String title) {

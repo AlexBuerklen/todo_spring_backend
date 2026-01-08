@@ -19,7 +19,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "400", description = "Invalid todo request"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/api/Todo/saveTodo")
+    @PostMapping("/saveTodo")
     ResponseEntity<TodoResponseDto> createTodo(@Valid @RequestBody TodoRequestDto todoRequestDto);
 
     @Operation(summary = "Delete a todo by id")
@@ -28,7 +28,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "404", description = "Todo not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @DeleteMapping("/api/Todo/deleteTodo/{id}")
+    @DeleteMapping("/deleteTodo/{id}")
     ResponseEntity<Void> deleteTodo(@PathVariable int id);
 
     @Operation(summary = "Get summarized categories from all Todos")
@@ -36,7 +36,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "200", description = "Get summarized categories"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/api/Todo/getCategoryFilteredTodos/{category}")
+    @GetMapping("/getCategoryFilteredTodos/{category}")
     ResponseEntity<List<TodoResponseDto>> getCategoryFilteredTodos(@PathVariable String category);
 
     @Operation(summary = "Change Title of Todo")
@@ -44,7 +44,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "201", description = "Todo title changed successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/api/Todo/changeTitle/{id}/{title}")
+    @PostMapping("/changeTitle/{id}/{title}")
     ResponseEntity<TodoResponseDto> changeTitle(@PathVariable int id, @PathVariable String title);
 
     @Operation(summary = "Change Description of Todo")
@@ -52,7 +52,7 @@ public interface TodoResource {
             @ApiResponse(responseCode = "201", description = "Todo description changed successfully"),
             @ApiResponse(responseCode = "500", description = "Internal Server error")
     })
-    @PostMapping("/api/Todo/changeDescription/{id}/{description}")
+    @PostMapping("/changeDescription/{id}/{description}")
     ResponseEntity<TodoResponseDto> changeDescription(@PathVariable int id, @PathVariable String description);
 
     @Operation(summary = "Change Due Date of Todo")
@@ -60,6 +60,6 @@ public interface TodoResource {
             @ApiResponse(responseCode = "200", description = "Todo Due Date changed successfully"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/api/Todo/changeDueDate/{id}/{date}")
+    @PostMapping("/changeDueDate/{id}/{date}")
     ResponseEntity<TodoResponseDto> changeDueDate(@PathVariable int id, @PathVariable LocalDate date);
 }

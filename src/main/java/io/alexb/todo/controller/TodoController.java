@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/api/todo")
 public class TodoController implements TodoResource {
 
     private final TodoService todoService;
